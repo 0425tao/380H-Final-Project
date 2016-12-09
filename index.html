@@ -1,98 +1,372 @@
 <!DOCTYPE html>
-<!-- saved from url=(0061)https://blackrockdigital.github.io/startbootstrap-freelancer/ -->
-<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-
+<html>
+<head>
+    <style>
     
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <title>380 Final Project</title>
+body {
+    font-size: 1rem;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 400;
+    fill: #8C8C8C;
+    text-align: center;
+}
+.timeLabel,
+.dayLabel {
+    font-size: 1.6rem;
+    fill: #AAAAAA;
+    font-weight: 300;
+}
+text.axis-workweek,
+text.axis-worktime {
+    fill: #404040;
+    font-weight: 400;
+}
+.title {
+    font-size: 2.8rem;
+    fill: #4F4F4F;
+    font-weight: 300;
+}
+.subtitle {
+    font-size: 1.4rem;
+    fill: #AAAAAA;
+    font-weight: 300;
+}
+.credit {
+    font-size: 1.2rem;
+    fill: #AAAAAA;
+    font-weight: 400;
+}
+.axis path,
+.axis tick,
+.axis line {
+    fill: none;
+    stroke: none;
+}
+text {
+    font-size: 1.2rem;
+    fill: #AAAAAA;
+    font-weight: 400;
+}
+.legendTitle {
+    font-size: 1.5rem;
+    fill: #4F4F4F;
+    font-weight: 300;
+}
 
-    <!-- Bootstrap Core CSS -->
-    <link href="./styles/bootstrap.min.css" rel="stylesheet">
+#container {
+  margin-left:auto;
+  margin-right:auto;
+  display:center;
+  width:1000px;
+  height:800px;
+  margin-bottom: 5px;
+  overflow: hidden;
+  border: 1px solid silver;
+  border-radius: 6px;
+  background: white;
+}
 
-	<script src="./d3.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/1.6.9/topojson.min.js"></script>
-    <script src="./worldmap.js"></script>
-   
-</head>
+.zoom-button {
+  width: 30px;
+  height: 30px;
+  border-radius: 4px;
+  border: none;
+  background: silver;
+  font-size: 16px;
+  color: white;
+  cursor: pointer;
+}
 
-<body id="page-top" class="index">
+#zoom-info {
+  display: inline-block;
+  padding: 10px;
+}
+</style>
 
-    <!-- Navigation -->
-    <nav id="mainNav" class="navbar navbar-default navbar-fixed-top navbar-custom affix-top">
-        <div class="container">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header page-scroll">
-                <a class="navbar-brand" href="https://blackrockdigital.github.io/startbootstrap-freelancer/#page-top">Start Bootstrap</a>
-            </div>
+<script src="./d3.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/1.6.9/topojson.min.js"></script>
+<script src="./worldmap.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+ </head>
+ 
+ <body>
+ 
+<div id="container" style="position: relative; width: 1100px; height: 560px;"></div>
 
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav navbar-right">
-                    <li class="hidden active">
-                        <a href="https://blackrockdigital.github.io/startbootstrap-freelancer/#page-top"></a>
-                    </li>
-                    <li class="page-scroll">
-                        <a href="https://blackrockdigital.github.io/startbootstrap-freelancer/#portfolio">Portfolio</a>
-                    </li>
-                    <li class="page-scroll">
-                        <a href="https://blackrockdigital.github.io/startbootstrap-freelancer/#about">About</a>
-                    </li>
-                    <li class="page-scroll">
-                        <a href="https://blackrockdigital.github.io/startbootstrap-freelancer/#contact">Contact</a>
-                    </li>
-                </ul>
-            </div>
-			
-			
-            <!-- /.navbar-collapse -->
-        </div>
-        <!-- /.container-fluid -->
-    </nav>
-  
-    <div id="container" style="position: center;margin:-15px 90px;width: 1000px; height: 750px;"></div>
-	<script>
-    var map = new Datamap({
-        element: document.getElementById('container'),
-        fills: {
-            HIGH: '#afafaf',
-            LOW: '#123456',
-            MEDIUM: 'blue',
-            UNKNOWN: 'rgb(0,0,0)',
-            defaultFill: 'green'
-        },
-        data: {
-            IRL: {
-                fillKey: 'LOW',
-                numberOfThings: 2002
+<button class="zoom-button" data-zoom="reset">0</button>
+<button class="zoom-button" data-zoom="out">-</button>
+<button class="zoom-button" data-zoom="in">+</button>
+<div id="zoom-info" style="font-size:15px;"></div>
+<div id="trafficAccidents" style="position:absolute;left:300px;top:480px;"></div>
+<script src="./legend.js"></script>
+
+<script>
+function Zoom(args) {
+  $.extend(this, {
+    $buttons:   $(".zoom-button"),
+    $info:      $("#zoom-info"),
+    scale:      { max: 50, currentShift: 0 },
+    $container: args.$container,
+    datamap:    args.datamap
+  });
+
+  this.init();
+}
+
+Zoom.prototype.init = function() {
+  var paths = this.datamap.svg.selectAll("path"),
+      subunits = this.datamap.svg.selectAll(".datamaps-subunit");
+
+  // preserve stroke thickness
+  paths.style("vector-effect", "non-scaling-stroke");
+
+  // disable click on drag end
+  subunits.call(
+    d3.behavior.drag().on("dragend", function() {
+      d3.event.sourceEvent.stopPropagation();
+    })
+  );
+
+  this.scale.set = this._getScalesArray();
+  this.d3Zoom = d3.behavior.zoom().scaleExtent([ 1, this.scale.max ]);
+
+  this._displayPercentage(1);
+  this.listen();
+};
+
+Zoom.prototype.listen = function() {
+  this.$buttons.off("click").on("click", this._handleClick.bind(this));
+
+  this.datamap.svg
+    .call(this.d3Zoom.on("zoom", this._handleScroll.bind(this)))
+    .on("dblclick.zoom", null); // disable zoom on double-click
+};
+
+Zoom.prototype.reset = function() {
+  this._shift("reset");
+};
+
+Zoom.prototype._handleScroll = function() {
+  var translate = d3.event.translate,
+      scale = d3.event.scale,
+      limited = this._bound(translate, scale);
+
+  this.scrolled = true;
+
+  this._update(limited.translate, limited.scale);
+};
+
+Zoom.prototype._handleClick = function(event) {
+  var direction = $(event.target).data("zoom");
+
+  this._shift(direction);
+};
+
+Zoom.prototype._shift = function(direction) {
+  var center = [ this.$container.width() / 2, this.$container.height() / 2 ],
+      translate = this.d3Zoom.translate(), translate0 = [], l = [],
+      view = {
+        x: translate[0],
+        y: translate[1],
+        k: this.d3Zoom.scale()
+      }, bounded;
+
+  translate0 = [
+    (center[0] - view.x) / view.k,
+    (center[1] - view.y) / view.k
+  ];
+
+	if (direction == "reset") {
+  	view.k = 1;
+    this.scrolled = true;
+  } else {
+  	view.k = this._getNextScale(direction);
+  }
+
+l = [ translate0[0] * view.k + view.x, translate0[1] * view.k + view.y ];
+
+  view.x += center[0] - l[0];
+  view.y += center[1] - l[1];
+
+  bounded = this._bound([ view.x, view.y ], view.k);
+
+  this._animate(bounded.translate, bounded.scale);
+};
+
+Zoom.prototype._bound = function(translate, scale) {
+  var width = this.$container.width(),
+      height = this.$container.height();
+
+  translate[0] = Math.min(
+    (width / height)  * (scale - 1),
+    Math.max( width * (1 - scale), translate[0] )
+  );
+
+  translate[1] = Math.min(0, Math.max(height * (1 - scale), translate[1]));
+
+  return { translate: translate, scale: scale };
+};
+
+Zoom.prototype._update = function(translate, scale) {
+  this.d3Zoom
+    .translate(translate)
+    .scale(scale);
+
+  this.datamap.svg.selectAll("g")
+    .attr("transform", "translate(" + translate + ")scale(" + scale + ")");
+
+  this._displayPercentage(scale);
+};
+
+Zoom.prototype._animate = function(translate, scale) {
+  var _this = this,
+      d3Zoom = this.d3Zoom;
+
+  d3.transition().duration(350).tween("zoom", function() {
+    var iTranslate = d3.interpolate(d3Zoom.translate(), translate),
+        iScale = d3.interpolate(d3Zoom.scale(), scale);
+
+		return function(t) {
+      _this._update(iTranslate(t), iScale(t));
+    };
+  });
+};
+
+Zoom.prototype._displayPercentage = function(scale) {
+  var value;
+
+  value = Math.round(Math.log(scale) / Math.log(this.scale.max) * 100);
+  this.$info.text(value + "%");
+};
+
+Zoom.prototype._getScalesArray = function() {
+  var array = [],
+      scaleMaxLog = Math.log(this.scale.max);
+
+  for (var i = 0; i <= 10; i++) {
+    array.push(Math.pow(Math.E, 0.1 * i * scaleMaxLog));
+  }
+
+  return array;
+};
+
+Zoom.prototype._getNextScale = function(direction) {
+  var scaleSet = this.scale.set,
+      currentScale = this.d3Zoom.scale(),
+      lastShift = scaleSet.length - 1,
+      shift, temp = [];
+
+  if (this.scrolled) {
+
+    for (shift = 0; shift <= lastShift; shift++) {
+      temp.push(Math.abs(scaleSet[shift] - currentScale));
+    }
+
+    shift = temp.indexOf(Math.min.apply(null, temp));
+
+    if (currentScale >= scaleSet[shift] && shift < lastShift) {
+      shift++;
+    }
+
+    if (direction == "out" && shift > 0) {
+      shift--;
+    }
+
+    this.scrolled = false;
+
+  } else {
+
+    shift = this.scale.currentShift;
+
+    if (direction == "out") {
+      shift > 0 && shift--;
+    } else {
+      shift < lastShift && shift++;
+    }
+  }
+
+  this.scale.currentShift = shift;
+
+  return scaleSet[shift];
+};
+</script>
+
+<script>
+    // example data from server
+    var series = [
+        ["AGO",40],["ARG",37],["ARM",30],["AUS",21],["AZE",57],["BHR",71],
+        ["BGD",56],["BLR",63],["BRA",32],["KHM",52],["CAN",16],["CHN",88],
+        ["COL",32],["CUB",79],["ECU",41],["EGY",63],["EST",6],["ETH",83],
+        ["FRA",25],["GMB",67],["GEO",25],["DEU",19],["HUN",27],["ISL",6],
+        ["IND",41],["IDN",44],["IRN",87],["ITA",25],["JPN",22],["JOR",51],
+        ["KAZ",63],["KEN",29],["KGZ",35],["LBN",45],["LBY",58],["MWI",41],
+		["MYS",45],["MEX",38],["MAR",44],["MMR",61],["NGA",34],["PAK",69],
+		["PHL",26],["RUS",65],["RWA",51],["SAU",72],["SGP",41],["ZAF",25],
+		["KOR",36],["LKA",44],["SDN",64],["SYR",87],["THA",66],["TUN",38],
+		["TUR",61],["UGA",42],["UKR",38],["ARE",68],["GBR",23],["USA",18],
+		["UZB",79],["VEN",60],["VNM",76],["ZMB",38],["ZWE",56]];
+    // Datamaps expect data in format:
+    // { "USA": { "fillColor": "#42a844", numberOfWhatever: 75},
+    //   "FRA": { "fillColor": "#8dc386", numberOfWhatever: 43 } }
+    var dataset = {};
+    // We need to colorize every country based on "numberOfWhatever"
+    // colors should be uniq for every value.
+    // For this purpose we create palette(using min/max series-value)
+    var onlyValues = series.map(function(obj){ return obj[1]; });
+    var minValue = Math.min.apply(null, onlyValues),
+            maxValue = Math.max.apply(null, onlyValues);
+    // create color palette function
+    // color can be whatever you wish
+    var paletteScale = d3.scale.linear()
+            .domain([minValue,maxValue])
+            .range(["#EFEFFF","#02386F"]); // blue color
+    // fill dataset in appropriate format
+    series.forEach(function(item){ //
+        // item example value ["USA", 70]
+        var iso = item[0],
+                value = item[1];
+        dataset[iso] = { numberOfThings: value, fillColor: paletteScale(value) };
+    });
+
+</script>
+
+<script>
+function Datamap() {
+	this.$container = $("#container");
+	this.instance = new Datamaps({
+    scope: 'world',
+    element: this.$container.get(0),
+    fills: { defaultFill: '#F5F5F5' },
+	data: dataset,
+    geographyConfig: {
+            borderColor: '#DEDEDE',
+            highlightBorderWidth: 2,
+            // don't change color on mouse hover
+            highlightFillColor: function(geo) {
+                return geo['fillColor'] || '#F5F5F5';
             },
-            USA: {
-                fillKey: 'MEDIUM',
-                numberOfThings: 10381
-            }
-        },
-		geographyConfig: {
-        dataUrl: null, // If not null, datamaps will fetch the map JSON (currently only supports topojson)
-        hideAntarctica: true,
-        hideHawaiiAndAlaska : false,
-        borderWidth: 1,
-        borderOpacity: 1,
-        borderColor: '#FDFDFD',
-        popupTemplate: function(a, b) {
+            // only change border
+            highlightBorderColor: '#B7B7B7',
+            // show desired information in tooltip
+            popupTemplate: function(a, b) {
 		if (a.properties.name=="Russia"){return '<div>'+'<div class="hovereffect"><strong><p>'+'</p></strong></div>'+'<div class="blank">'+'</div>'+
 		'<img src="./images/Russia_Free.png" style="width:450px;height:300px;" />'+'</div>' } 
 		else 
-			return '<div class="hovereffect"><strong>' + a.properties.name + '</strong></div>'
+			return '<div class="hoverinfo"><strong>' + a.properties.name + '<br>'+'Freedom Score:'+b.numberOfThings+'</strong></div>'
     },
-        popupOnHover: true, // True to show the popup while hovering
-        highlightOnHover: true,
-        highlightFillColor: '#FC8D59',
-        highlightBorderColor: 'rgba(250, 15, 160, 0.2)',
-        highlightBorderWidth: 2,
-        highlightBorderOpacity: 1
-    },
-    });
+	},
+    done: this._handleMapReady.bind(this)
+	});
+}
+
+Datamap.prototype._handleMapReady = function(datamap) {
+	this.zoom = new Zoom({
+  	$container: this.$container,
+  	datamap: datamap
+  });
+}
+
+new Datamap();
+
 </script>
-</body></html>
+ </body>
