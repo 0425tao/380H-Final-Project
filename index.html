@@ -84,9 +84,10 @@ text {
 </style>
 
 <script src="./d3.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/1.6.9/topojson.min.js"></script>
+<script src="./topojson.min.js"></script>
 <script src="./worldmap.js"></script>
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="./jquery.min.js"></script>
+<link href="./styles/bootstrap.min.css" rel="stylesheet">
  </head>
  
  <body>
@@ -349,6 +350,7 @@ function Datamap() {
             highlightBorderColor: '#B7B7B7',
             // show desired information in tooltip
             popupTemplate: function(a, b) {
+		if (!b) {return '<div class="hoverinfo"><strong>' + a.properties.name + '<br>'+'Freedom Score unavailable'+'</strong></div>'; }
 		if (a.properties.name=="Russia"){return '<div>'+'<div class="hovereffect"><strong><p>'+'</p></strong></div>'+'<div class="blank">'+'</div>'+
 		'<img src="./images/Russia_Free.png" style="width:450px;height:300px;" />'+'</div>' } 
 		else 
