@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+    
+body {
+    font-size: 1rem;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 400;
+    fill: #8C8C8C;
+    text-align: center;
+}
+.timeLabel,
+.dayLabel {
+    font-size: 1.6rem;
+    fill: #AAAAAA;
+    font-weight: 300;
+}
+text.axis-workweek,
+text.axis-worktime {
+    fill: #404040;
+    font-weight: 400;
+}
+.title {
+    font-size: 2.8rem;
+    fill: #4F4F4F;
+    font-weight: 300;
+}
+.subtitle {
+    font-size: 1.4rem;
+    fill: #AAAAAA;
+    font-weight: 300;
+}
+.credit {
+    font-size: 1.2rem;
+    fill: #AAAAAA;
+    font-weight: 400;
+}
+.axis path,
+.axis tick,
+.axis line {
+    fill: none;
+    stroke: none;
+}
+text {
+    font-size: 1.2rem;
+    fill: #AAAAAA;
+    font-weight: 400;
+}
+.legendTitle {
+    font-size: 1.5rem;
+    fill: #4F4F4F;
+    font-weight: 300;
+}
+
+#container {
+  margin-left:auto;
+  margin-right:auto;
+  display:center;
+  width:1000px;
+  height:800px;
+  margin-bottom: 5px;
+  overflow: hidden;
+  border: 1px solid silver;
+  border-radius: 6px;
+  background: white;
+}
+
+.zoom-button {
+  width: 30px;
+  height: 30px;
+  border-radius: 4px;
+  border: none;
+  background: silver;
+  font-size: 16px;
+  color: white;
+  cursor: pointer;
+}
+
+#zoom-info {
+  display: inline-block;
+  padding: 10px;
+}
+
+.affix {
+      top: 0;
+      width: 100%;
+      -webkit-transition: all .5s ease-in-out;
+      transition: all .5s ease-in-out;
+      background-color: rgba(15, 155, 179, 0.58);
+      border-color: rgba(15, 155, 179, 1);
+
+  }
+.affix a {
+      color: #fff !important;
+      padding: 15px !important;
+      -webkit-transition: all .5s ease-in-out;
+      transition: all .5s ease-in-out;
+  }
+.affix-top a {
+      padding: 15px !important;
+  }
+  
+</style>
+
+<link href="./styles/bootstrap.min.css" rel="stylesheet">
+<script src="./bootstrap.min.js"></script>
+<link href="./append.css" rel="stylesheet">
+ </head>
+ 
+ <body>
+ <header style="height:400px;
+          background-image: url(./images/Globe-Internet.jpg);
+		   background-size: cover;background-position:15% 40%">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <div class="site-heading" style="margin-top:100px;">
+                        <h1 style="font-size:70px;color:rgba(200,200,200,1);">Internet Freedom</h1>
+                        <hr class="small">
+                        <span class="subheading" style="font-size:40px;color:rgba(145,145,145,0.8);">COMP 380H Project</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+</header>
+<div style="background-color:#e2e2e2;">
+ <nav class="navbar" data-spy="affix" data-offset-top="400" style="z-index:2;">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="./index.html">Home</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li><a href="#">Graphs</a></li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Special cases <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="#">Country1</a></li>
+            <li><a href="#">Country2</a></li>
+            <li><a href="#">Country3</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="#">Country4</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="#">Country5</a></li>
+          </ul>
+        </li>
+      </ul>
+	  
+      <ul class="nav navbar-nav navbar-left">
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" 
+		  role="button" aria-haspopup="true" aria-expanded="false">Two sides<span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="#">Hao</a></li>
+            <li role="separator" class="divider"></li>
+			<li><a href="#">Huai</a></li>
+          </ul>
+        </li>
+		<li><a href="./glossary">Glossary</a></li>
+	    <li><a href="./contact.html">Contact</a></li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+</div>
+
+</body>
+</html>
