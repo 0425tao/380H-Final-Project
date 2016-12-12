@@ -151,7 +151,7 @@ text {
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" 
 		  role="button" aria-haspopup="true" aria-expanded="false">Special Countries<span class="caret"></span></a>
-          <ul class="dropdown-menu">
+          <ul class="dropdown-menu" style="background-color:rgba(15, 155, 179, 0.58)">
            <li><a href="./countries.html">country1</a></li>
             <li role="separator" class="divider"></li>
 			<li><a href="./countries.html">country2</a></li>
@@ -163,7 +163,7 @@ text {
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" 
 		  role="button" aria-haspopup="true" aria-expanded="false">Two sides<span class="caret"></span></a>
-          <ul class="dropdown-menu">
+          <ul class="dropdown-menu" style="background-color:rgba(15, 155, 179, 0.58)">
             <li><a href="./sides.html">Hao</a></li>
             <li role="separator" class="divider"></li>
 			<li><a href="./sides.html">Huai</a></li>
@@ -201,8 +201,283 @@ text {
   <h1>Some text to enable scrolling</h1>
 </div>
 
-<div id="plotly-div" style="width:800px;height:400px;"></div>
+<div id="plotly-div1" style="width:800px;height:400px;"></div>
+
+
+<div id="plotly-div2" style="width:800px;height:400px;"></div>
 </div>
+
+
+<script>
+data= [
+    {
+      "uid": "78d39f",
+      "ysrc": "thomaswu:5:5f7499",
+      "xsrc": "thomaswu:5:444555",
+      "mode": "markers",
+      "marker": {
+        "sizesrc": "thomaswu:5:a149c6",
+        "sizeref": 488.3082876,
+        "size": [
+          "50173.339916",
+          "17295.36383",
+          "43248.529909",
+          "55836.792631",
+          "41219.049207",
+          "32477.215145",
+          "43734.000171",
+          "29847.049785",
+          "5691.6867696",
+          "36248.180191",
+          "3795.9733085",
+          "2899.3752782",
+          "13431.87834",
+          "12259.115028",
+          "1376.7128289",
+          "3499.8042176",
+          "6056.1477172",
+          "8538.589975",
+          "27221.524051",
+          "1307.7886111",
+          "9009.2611627",
+          "2114.9547163",
+          "3872.5120836",
+          "4102.1185897",
+          "52888.744672",
+          "6248.1108731",
+          "1581.5889132",
+          "381.3705362",
+          "675.57346622",
+          "3346.4870395",
+          "2871.5135883",
+          "3926.1743959",
+          "9766.165752",
+          "697.34822808",
+          "1158.6899035",
+          "890.41608775",
+          "1211.7015306",
+          "5496.3446403",
+          "4643.3057625",
+          "1203.5053866",
+          "9130.0260648",
+          "10508.396403",
+          "5740.4564948",
+          "3614.7467662",
+          "2089.4002121",
+          "9057.1130604",
+          "5816.44069",
+          "1428.9886366",
+          "2111.1380237",
+          "2132.0724418",
+          "619.14356311",
+          "7924.6539566"
+        ]
+      },
+      "textsrc": "thomaswu:5:6b517c",
+      "text": [
+        "Iceland",
+        "Estonia",
+        "Canada",
+        "United States",
+        "Germany",
+        "Japan",
+        "United Kingdom",
+        "Italy",
+        "South Africa",
+        "France",
+        "Georgia",
+        "Philippines",
+        "Argentina",
+        "Hungary",
+        "Kenya",
+        "Armenia",
+        "Colombia",
+        "Brazil",
+        "South Korea",
+        "Zambia",
+        "Mexico",
+        "Ukraine",
+        "Tunisia",
+        "Angola",
+        "Singapore",
+        "Ecuador",
+        "India",
+        "Malawi",
+        "Uganda",
+        "Indonesia",
+        "Morocco",
+        "Sri Lanka",
+        "Malaysia",
+        "Rwanda",
+        "Cambodia",
+        "Zimbabwe",
+        "Bangladesh",
+        "Azerbaijan",
+        "Libya",
+        "Myanmar",
+        "Turkey",
+        "Kazakhstan",
+        "Belarus",
+        "Egypt",
+        "Sudan",
+        "Russia",
+        "Thailand",
+        "Pakistan",
+        "Vietnam",
+        "Uzbekistan",
+        "Ethiopia",
+        "China"
+      ],
+      "y": [
+        "98.2",
+        "84.2",
+        "93.3",
+        "88.6",
+        "88.4",
+        "91",
+        "91.6",
+        "62",
+        "52.6",
+        "83.8",
+        "48.9",
+        "52.6",
+        "79.4",
+        "76.1",
+        "68.4",
+        "69.7",
+        "58.6",
+        "67.5",
+        "92.1",
+        "20.4",
+        "56",
+        "43.4",
+        "52.1",
+        "29.5",
+        "81.3",
+        "83.8",
+        "36.5",
+        "6.3",
+        "31.1",
+        "51.4",
+        "60",
+        "27.4",
+        "68.1",
+        "24.8",
+        "25.7",
+        "46.5",
+        "38.9",
+        "61",
+        "42.8",
+        "19.3",
+        "59.6",
+        "54.3",
+        "59",
+        "38.6",
+        "29.6",
+        "70.5",
+        "60.1",
+        "17.8",
+        "51.5",
+        "52.4",
+        "4.4",
+        "52.3"
+      ],
+      "x": [
+        "6",
+        "6",
+        "16",
+        "18",
+        "19",
+        "22",
+        "23",
+        "25",
+        "25",
+        "25",
+        "25",
+        "26",
+        "27",
+        "27",
+        "29",
+        "30",
+        "32",
+        "32",
+        "36",
+        "38",
+        "38",
+        "38",
+        "38",
+        "40",
+        "41",
+        "41",
+        "41",
+        "41",
+        "42",
+        "44",
+        "44",
+        "44",
+        "45",
+        "51",
+        "52",
+        "56",
+        "56",
+        "57",
+        "58",
+        "61",
+        "61",
+        "63",
+        "63",
+        "63",
+        "64",
+        "65",
+        "66",
+        "69",
+        "76",
+        "79",
+        "83",
+        "88"
+      ],
+      "type": "scatter",
+      "name": "Internet Penetration"
+    }
+  ],
+  layout= {
+    "autosize": true,
+    "yaxis": {
+      "range": [
+        -4.040872338689679,
+        136.00087328047996
+      ],
+      "type": "linear",
+      "autorange": true,
+      "title": "Internet Penetration"
+    },
+    "title": "Freedom Score vs Internet Penetration vs GDP per capita",
+    "showlegend": true,
+    "xaxis": {
+      "range": [
+        -10.829284100496327,
+        95.11881346828181
+      ],
+      "title": "Internet Freedom Score",
+      "type": "linear",
+      "autorange": true,
+      "fixedrange": false
+    },
+    "hovermode": "closest",
+    "legend": {
+      "y": 1,
+      "x": 1,
+      "font": {
+        "size": 12
+      },
+      "borderwidth": 0
+    }
+  }
+Plotly.plot('plotly-div2', {
+  data: data,
+  layout: layout
+});
+</script>
 
 <script>
 var paletteScale = d3.scale.linear()
@@ -246,7 +521,7 @@ layout = {
     type: 'linear'
   }
 };
-Plotly.plot('plotly-div', {
+Plotly.plot('plotly-div1', {
   data: data,
   layout: layout
 });
