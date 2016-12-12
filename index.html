@@ -182,13 +182,14 @@ text {
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>
-<div id="container" style="position: relative; width: 1100px; height: 560px;"></div>
+<div style="position: absolute;left:50px;top:470px; ">
+<div id="container" style="position:relative;margin-left:30px;margin-right:auto;width: 1100px; height: 560px;"></div>
 
 <button class="zoom-button" data-zoom="reset">0</button>
 <button class="zoom-button" data-zoom="out">-</button>
 <button class="zoom-button" data-zoom="in">+</button>
 <div id="zoom-info" style="font-size:15px;"></div>
-<div id="trafficAccidents" style="position:absolute;left:400px;top:880px;"></div>
+<div id="legend" style="position:absolute;left:350px;top:470px;"></div>
 <script src="./legend.js"></script>
 
 <div class="container-fluid" style="height:1000px">
@@ -204,7 +205,7 @@ text {
   <h1>Some text to enable scrolling</h1>
   <h1>Some text to enable scrolling</h1>
 </div>
-
+</div>
 <script>
 function Zoom(args) {
   $.extend(this, {

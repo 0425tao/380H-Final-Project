@@ -13,7 +13,7 @@ var width = 550,
 	height = 70;
 
 //SVG container
-var svg = d3.select('#trafficAccidents')
+var svg = d3.select('#legend')
 	.append("svg")
 	.attr("width", width + margin.left + margin.right)
 	.attr("height", height + margin.top + margin.bottom)
