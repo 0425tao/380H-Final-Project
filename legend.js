@@ -113,7 +113,7 @@ legendsvg.append("text")
 	.attr("x", 0)
 	.attr("y", -10)
 	.style("text-anchor", "middle")
-	.text("Internent Freedom Score");
+	.text("Internent Freedom Score (0=Best 100=Worst)");
 
 //Set scale for x-axis
 var xScale = d3.scale.linear()
