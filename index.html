@@ -151,7 +151,7 @@ text {
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li><a href="./graphs.html">Graphs</a></li>
+        <li><a href="./graphs.html">Facts</a></li>
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" 
 		  role="button" aria-haspopup="true" aria-expanded="false">Special Countries<span class="caret"></span></a>
@@ -167,7 +167,7 @@ text {
       <ul class="nav navbar-nav navbar-left">
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" 
-		  role="button" aria-haspopup="true" aria-expanded="false">Two sides<span class="caret"></span></a>
+		  role="button" aria-haspopup="true" aria-expanded="false">Debate<span class="caret"></span></a>
           <ul class="dropdown-menu" style="background-color:rgba(15, 155, 179, 0.58);text-align:center;font-size:15px;">
             <li><a href="./sides.html#about">About</a></li>
             <li role="separator" class="divider"></li>
@@ -202,7 +202,193 @@ text {
 
 <div style="height:100px"></div>
 <div id="plotly-div1" style="width:100%;margin-left:20px;"></div>
-<div style="height:200px"></div>
+<div style="height:100px"></div>
+<div id="plotly-div2" style="width:100%;margin-left:30px;"></div>
+<div style="height:100px"></div>
+<script>
+{
+  data= [
+    {
+      "orientation": "h",
+      "uid": "b0f9ca",
+      "y": [
+        "Estonia",
+        "Iceland",
+        "Canada",
+        "USA",
+        "Germany",
+        "Australia",
+        "Japan",
+        "United Kingdom",
+        "France",
+        "Georgia",
+        "Italy",
+        "South Africa",
+        "Philippine",
+        "Argentina",
+        "Hungary",
+        "Kenya",
+        "Armenia",
+        "Brazil",
+        "Colombia",
+        "Nigeria",
+        "Kyrgyzstan",
+        "South Korea",
+        "Mexico",
+        "Tunisia",
+        "Ukraine",
+        "Zambia",
+        "Angola",
+        "Ecuador",
+        "India",
+        "Malawi",
+        "Singapore",
+        "Uganda",
+        "Indonesia",
+        "Morocco",
+        "Sri Lanka",
+        "Lebanon",
+        "Malaysia",
+        "Jordan",
+        "Rwanda",
+        "Cambodia",
+        "Bangladesh",
+        "Zimbabwe",
+        "Azrbaijan",
+        "Lybia",
+        "Venezuela",
+        "Myanmar",
+        "Turkey",
+        "Belarus",
+        "Egypt",
+        "Kazakhistan",
+        "Sudan",
+        "Russia",
+        "Thailand",
+        "Gambia",
+        "United Arab Emirate",
+        "Pakistan",
+        "Baharan",
+        "Saudi Arab",
+        "Vietnam",
+        "Cuba",
+        "Uzbekistan",
+        "Ethiopia",
+        "Iran",
+        "Syria",
+        "China"
+      ],
+      "x": [
+        "-2",
+        "0",
+        "1",
+        "-1",
+        "2",
+        "4",
+        "0",
+        "-1",
+        "5",
+        "-1",
+        "3",
+        "-1",
+        "-1",
+        "0",
+        "3",
+        "1",
+        "2",
+        "2",
+        "2",
+        "1",
+        "1",
+        "3",
+        "-1",
+        "-1",
+        "5",
+        "-5",
+        "2",
+        "4",
+        "-1",
+        "-1",
+        "1",
+        "8",
+        "2",
+        "0",
+        "-14",
+        "-2",
+        "3",
+        "3",
+        "1",
+        "5",
+        "7",
+        "1",
+        "2",
+        "10",
+        "4",
+        "1",
+        "6",
+        "1",
+        "3",
+        "3",
+        "-1",
+        "5",
+        "4",
+        "2",
+        "1",
+        "0",
+        "-3",
+        "0",
+        "0",
+        "-5",
+        "0",
+        "3",
+        "-2",
+        "-1",
+        "1"
+      ],
+      "type": "bar",
+      "name": "Column 0"
+    }
+  ],
+  layout={
+    "autosize": true,
+    "yaxis": {
+      "type": "category",
+      "range": [
+        -0.5,
+        64.5
+      ],
+      "titlefont": {
+        "size": 19
+      },
+      "autorange": false,
+      "title": "Countries"
+    },
+    "title": "Change of Internet freedom score 2014-2016",
+    "xaxis": {
+      "type": "linear",
+      "range": [
+        -15.333333333333334,
+        11.333333333333334
+      ],
+      "titlefont": {
+        "size": 15
+      },
+      "autorange": false,
+      "title": "Difference"
+    },
+    "hovermode": "closest",
+    "margin": {
+      "r": 80,
+      "pad": 0,
+      "l": 120
+    }
+  }
+}
+Plotly.plot('plotly-div2', {
+  data: data,
+  layout: layout
+});
+</script>
 
 <script>
 var paletteScale = d3.scale.linear()
