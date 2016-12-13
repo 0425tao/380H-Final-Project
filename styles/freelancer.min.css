@@ -33,7 +33,8 @@ h6 {
     font-weight: 700
 }
 hr.star-light,
-hr.star-primary {
+hr.star-primary,
+hr.star2 {
     padding: 0;
     border: none;
     border-top: solid 5px;
@@ -41,6 +42,7 @@ hr.star-primary {
     max-width: 250px;
     margin: 25px auto 30px
 }
+hr.star2:after,
 hr.star-light:after,
 hr.star-primary:after {
     content: "\f005";
@@ -56,6 +58,15 @@ header .intro-text .name {
     font-family: Montserrat, "Helvetica Neue", Helvetica, Arial, sans-serif;
     text-transform: uppercase
 }
+hr.star2 {
+    border-color: #fff
+}
+
+hr.star2:after {
+    background-color: #3286db;
+    color: #fff
+}
+
 hr.star-light {
     border-color: #fff
 }
@@ -110,6 +121,10 @@ section h2 {
 }
 section.green {
     background: #18BC9C;
+    color: #fff
+}
+section.blue {
+    background: rgba(94, 144, 224,0.8);
     color: #fff
 }
 @media (max-width: 767px) {
