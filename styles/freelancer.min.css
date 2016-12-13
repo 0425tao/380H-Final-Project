@@ -34,7 +34,8 @@ h6 {
 }
 hr.star-light,
 hr.star-primary,
-hr.star2 {
+hr.star2,
+hr.star3 {
     padding: 0;
     border: none;
     border-top: solid 5px;
@@ -43,6 +44,7 @@ hr.star2 {
     margin: 25px auto 30px
 }
 hr.star2:after,
+hr.star3:after,
 hr.star-light:after,
 hr.star-primary:after {
     content: "\f005";
@@ -66,7 +68,14 @@ hr.star2:after {
     background-color: #3286db;
     color: #fff
 }
+hr.star3 {
+    border-color: #fff
+}
 
+hr.star3:after {
+    background-color: rgba(206,199,236,1);
+    color: #fff
+}
 hr.star-light {
     border-color: #fff
 }
@@ -318,8 +327,8 @@ fieldset[disabled] .btn-primary:hover {
 }
 .btn-success {
     color: #fff;
-    background-color: #18BC9C;
-    border-color: #18BC9C;
+    background-color: rgb(194, 130, 237);
+    border-color: rgb(194, 130, 237);
     font-weight: 700
 }
 .btn-success.active,
